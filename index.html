@@ -6,29 +6,93 @@
   <script id="challenge">
     // 👉 CHALLENGE 1
     function profileActivation(profile, reason) {
+   if(profile.active && !reason){
+    return 'confirm status manually'
+   }
+   if(profile.active){
+    profile.active=false;
+    profile.reason=reason;
+   }
+   else{
+    profile.active=true;
+    delete profile.reason
+   }
+   return profile
+}
+ //👉 CHALLENGE 2 
+function mineSweeper(grid, x, y) {
+    if (x < 1 || x > 3 || y < 1 || y > 3) {
+        return "invalid coordinates";
+    }
+    const navi = y - 1;
+    const coli = x - 1;
 
+    if (grid[navi][coli] === "🟥") {
+        return "🟥 💀"; 
+    } else if (grid[navi][coli] === "🟦") {
+        return "🟦 🥳"; 
     }
 
-    // 👉 CHALLENGE 2
-    function mineSweeper(grid, x, y) {
-
-    }
-
+    return "unknown outcome";
+}
+   
     // 👉 CHALLENGE 3
     function booleanize(obj) {
-
+     for(const key in obj){
+      if(key.length>9){
+        return "shorten all prop names to 9 chars or less"
+      }
+     }
+      for(const key in obj){
+        const value=obj[key];
+      
+      switch(value){
+        case 0:
+          obj[key]=false;
+          break;
+        case 1:
+          obj[key]=true;
+          break;
+        case null:
+          delete obj[key];
+          break;
+      }
     }
+    return obj
+  }
+
+
+
 
     // 👉 CHALLENGE 4
     function scrub(text, forbidden) {
-
+    if (text === '' || forbidden.length === 0) {
+        return text;
     }
+    var words = text.toLowerCase().split(' ');
+    for (var i = 0; i < words.length; i++) {
+        var wordClean = words[i].replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"");
+        if (forbidden.includes(wordClean)) {
+            var replacement = '';
+            for (var j = 0; j < wordClean.length; j++) {
+                replacement += 'x';
+            }
+            text = text.replace(new RegExp(words[i], 'i'), replacement);
+        }
+    }
+    return text;
+}
+
 
     // 👉 CHALLENGE 5 (bonus, NOT graded)
-    function normalizePhoneNumber(num) {
+function normalizePhoneNumber(num) {
+    const areaCode = '(' + num[0] + num[1] + num[2] + ')';
+    const firstThree = num[3] + num[4] + num[5];
+    const lastFour = num[6] + num[7] + num[8] + num[9];
+    const formattedNumber = areaCode + ' ' + firstThree + '-' + lastFour;
 
-    }
-
+    return formattedNumber;
+}
     // 👉 CHALLENGE 6 (bonus, NOT graded)
     function diceRolls() {
 
